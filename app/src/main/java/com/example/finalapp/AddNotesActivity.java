@@ -39,12 +39,17 @@ public class AddNotesActivity extends AppCompatActivity implements TimePickerDia
 //        timePicker = findViewById(R.id.timePicker);
 //        timePicker.setIs24HourView(true);
 //        datePicker = findViewById(R.id.datePicker);
-
-        dateButton.setOnClickListener(new View.OnClickListener() {
+        timeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DialogFragment timePicker = new TimePickerFragment();
                 timePicker.show(getSupportFragmentManager(), "time picker");
+            }
+        });
+        dateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
     }
@@ -86,6 +91,6 @@ public class AddNotesActivity extends AppCompatActivity implements TimePickerDia
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        
+        timeButton.setText("Hour: " + hourOfDay + " Minute: " + minute);
     }
 }

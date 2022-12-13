@@ -33,7 +33,7 @@ public class UpdateActivity extends AppCompatActivity implements TimePickerDialo
         desc = findViewById(R.id.description);
         btnTime = findViewById(R.id.timebtn);
         btnDate = findViewById(R.id.datebtn);
-        //update = findViewById(R.id.update_note);
+
 
         Intent i = getIntent();
         title.setText(i.getStringExtra("title"));
@@ -42,18 +42,6 @@ public class UpdateActivity extends AppCompatActivity implements TimePickerDialo
         btnTime.setText(i.getStringExtra("time"));
         btnDate.setText(i.getStringExtra("date"));
 
-//        update.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (!TextUtils.isEmpty(title.getText().toString()) && !TextUtils.isEmpty(desc.getText().toString())){
-//                    Database database = new Database(UpdateActivity.this);
-//                    database.updateNotes(title.getText().toString(),desc.getText().toString(),id);
-//                    startActivity(new Intent(UpdateActivity.this,MainActivity.class));
-//                } else {
-//                    Toast.makeText(UpdateActivity.this, "", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
         btnTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

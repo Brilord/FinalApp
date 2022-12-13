@@ -87,7 +87,8 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "No Data to show", Toast.LENGTH_SHORT).show();
         } else {
             while (cursor.moveToNext()){
-                noteslist.add(new Model(cursor.getString(0),cursor.getString(1),cursor.getString(2)));
+                noteslist.add(new Model(cursor.getString(0),cursor.getString(1),cursor.getString(2),
+                        cursor.getString(3), cursor.getString(4)));
                 System.out.println("Notes:-"+noteslist.indexOf(1));
             }
         }

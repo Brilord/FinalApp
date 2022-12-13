@@ -19,6 +19,8 @@ public class Database extends SQLiteOpenHelper {
     private static final String columnId = "id";
     private static final String columnTitle = "title";
     private static final String columnDescription = "description";
+    private static final String columnTime = "time";
+    private static final String columnDate = "date";
 
 
 
@@ -32,7 +34,7 @@ public class Database extends SQLiteOpenHelper {
         String query = "CREATE TABLE "+tableName+
                 " ("+columnId+ " INTEGER PRIMARY KEY AUTOINCREMENT,"+
                 columnTitle+ " TEXT, "+
-                columnDescription +" Text);";
+                columnDescription + " TEXT, " + columnTime + " TEXT, " + columnDate +" Text);";
         db.execSQL(query);
     }
 
@@ -42,13 +44,15 @@ public class Database extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void  addNotes(String title, String desc){
+    public void  addNotes(String title, String desc, String time, String date){
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
         cv.put(columnTitle,title);
         cv.put(columnDescription,desc);
+        cv.put(columnTime, time);
+        cv.put(columnDate, date);
 
         long resultValue = db.insert(tableName,null,cv);
 
@@ -78,11 +82,13 @@ public class Database extends SQLiteOpenHelper {
 
     }
 
-    void updateNotes(String title,String desc , String id){
+    void updateNotes(String title,String desc , String id, String time, String date){
         SQLiteDatabase database =  this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(columnTitle,title);
         contentValues.put(columnDescription,desc);
+        contentValues.put(columnTime, time);
+        contentValues.put(columnDate, date);
 
         long resut  = database.update(tableName,contentValues,"id=?",new String[]{id});
         if (resut == -1){

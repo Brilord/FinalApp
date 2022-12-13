@@ -43,6 +43,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> implemen
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.title.setText(notesList.get(position).getTitle());
         holder.description.setText(notesList.get(position).getDesciption());
+        holder.date_time.setText(notesList.get(position).getDate()+""+notesList.get(position).getTime());
+
 
         holder.mLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,6 +53,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> implemen
                 intent.putExtra("title",notesList.get(position).getTitle());
                 intent.putExtra("desc",notesList.get(position).getDesciption());
                 intent.putExtra("id",notesList.get(position).getId());
+                intent.putExtra("time",notesList.get(position).getTime());
+                intent.putExtra("date", notesList.get(position).getDate());
                 activity.startActivity(intent);
             }
         });
@@ -108,6 +112,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> implemen
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView title, description;
+        TextView date_time;
         RelativeLayout mLayout;
         ImageButton btnDelete;
 
@@ -118,6 +123,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> implemen
             title = itemView.findViewById(R.id.title);
             description = itemView.findViewById(R.id.description);
             btnDelete = itemView.findViewById(R.id.btnDelete);
+            date_time = itemView.findViewById(R.id.date_time);
         }
     }
 

@@ -63,9 +63,10 @@ public class AddNotesActivity extends AppCompatActivity implements TimePickerDia
     public void onBackPressed() {
         super.onBackPressed();
         Log.d("NEW", "HELLO");
-        if (!TextUtils.isEmpty(title.getText().toString()) || !TextUtils.isEmpty(description.getText().toString())) {
+        if (!TextUtils.isEmpty(title.getText().toString()) || !TextUtils.isEmpty(description.getText().toString())
+        || !TextUtils.isEmpty(timeButton.getText().toString()) || !TextUtils.isEmpty(dateButton.getText().toString())) {
             Database db = new Database(AddNotesActivity.this);
-            db.addNotes(title.getText().toString(), description.getText().toString());
+            db.addNotes(title.getText().toString(), description.getText().toString(), timeButton.getText().toString(),dateButton.getText().toString());
 
             Intent intent = new Intent(AddNotesActivity.this, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

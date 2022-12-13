@@ -2,6 +2,7 @@ package com.example.finalapp;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -61,14 +63,38 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> implemen
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int position = holder.getAdapterPosition();
-//                Model item = mAdapter.getList().get(position);
-//                mAdapter.removeItem(holder.getAdapterPosition());
-                Model item = notesList.get(holder.getAdapterPosition());
-                notesList.remove(holder.getAdapterPosition());
-                Database database = new Database(context);
-                database.deleteSingleItem(item.getId());
-                notifyItemRemoved(position);
+//                int position = holder.getAdapterPosition();
+//                Model item = notesList.get(holder.getAdapterPosition());
+//                notesList.remove(holder.getAdapterPosition());
+//                Database database = new Database(context);
+//                database.deleteSingleItem(item.getId());
+//                notifyItemRemoved(position);
+                AlertDialog dialog;
+                final AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+                alertDialog.setTitle("Delete Entry");
+                alertDialog.setMessage("Are you sure you want to delete this Reminder");
+                alertDialog.setCancelable(false);
+
+                alertDialog.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        int position = holder.getAdapterPosition();
+                        Model item = notesList.get(holder.getAdapterPosition());
+                        notesList.remove(holder.getAdapterPosition());
+                        Database database = new Database(context);
+                        database.deleteSingleItem(item.getId());
+                        notifyItemRemoved(position);
+                    }
+                });
+
+                alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                dialog = alertDialog.create();
+                dialog.show();
             }
         });
     }

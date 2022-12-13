@@ -7,6 +7,7 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -54,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
         fetchAllNotes();
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(1,LinearLayoutManager.VERTICAL));
         mAdapter = new Adapter(this, MainActivity.this,noteslist);
         recyclerView.setAdapter(mAdapter);
 
@@ -119,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
             Intent email= new Intent(Intent.ACTION_SENDTO);
             email.setData(Uri.parse("mailto:brilord@gmail.com"));
             email.putExtra(Intent.EXTRA_SUBJECT, "Feedback");
-            //email.putExtra(Intent.EXTRA_TEXT, "My Email message");
+            email.putExtra(Intent.EXTRA_TEXT, "");
             startActivity(email);
         } else if(item.getItemId() == R.id.about) {
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://luddy.indiana.edu/"));

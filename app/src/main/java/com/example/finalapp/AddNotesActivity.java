@@ -40,9 +40,7 @@ public class AddNotesActivity extends AppCompatActivity implements TimePickerDia
         description = findViewById(R.id.description_edit);
         dateButton = findViewById(R.id.dateButton);
         timeButton = findViewById(R.id.timeButton);
-//        timePicker = findViewById(R.id.timePicker);
-//        timePicker.setIs24HourView(true);
-//        datePicker = findViewById(R.id.datePicker);
+
         timeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,22 +76,43 @@ public class AddNotesActivity extends AppCompatActivity implements TimePickerDia
         }
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.add_note_menu, menu);
-//        return super.onCreateOptionsMenu(menu);
-//    }
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle item selection
-//        switch (item.getItemId()) {
-//            case R.id.eventActivity1:
-//                startActivity(new Intent(getApplicationContext(), EventsActivity.class));
-//                return true;
-//            default:
-//                return super.onOptionsItemSelected(item);
-//        }
-//    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.add_note_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.delete1:
+                AlertDialog dialog;
+                final AlertDialog.Builder alertDialog = new AlertDialog.Builder(AddNotesActivity.this);
+                alertDialog.setTitle("Delete Entry");
+                alertDialog.setMessage("Are you sure you want to delete this reminder?");
+                alertDialog.setCancelable(false);
+
+                alertDialog.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+
+                    }
+                });
+
+                alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                dialog = alertDialog.create();
+                dialog.show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {

@@ -1,14 +1,17 @@
 package com.example.finalapp;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -90,5 +93,38 @@ public class UpdateActivity extends AppCompatActivity implements TimePickerDialo
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         btnTime.setText("Hour: " + hourOfDay + " Minute: " + minute);
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.delete1:
+                AlertDialog dialog;
+                final AlertDialog.Builder alertDialog = new AlertDialog.Builder(UpdateActivity.this);
+                alertDialog.setTitle("Delete");
+                alertDialog.setMessage("Are you sure you want to cancel the changes?");
+                alertDialog.setCancelable(false);
+
+                alertDialog.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+
+                    }
+                });
+
+                alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                dialog = alertDialog.create();
+                dialog.show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

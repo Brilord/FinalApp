@@ -5,6 +5,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
+import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -21,7 +22,10 @@ import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-public class AddNotesActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener{
+import java.text.DateFormat;
+import java.util.Calendar;
+
+public class AddNotesActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
     EditText title, description;
     Button addNoteButton, dateButton, timeButton;
     TimePicker timePicker;
@@ -49,7 +53,8 @@ public class AddNotesActivity extends AppCompatActivity implements TimePickerDia
         dateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                DialogFragment datePicker = new DatePickerFragment();
+                datePicker.show(getSupportFragmentManager(), "date picker");
             }
         });
     }
@@ -92,5 +97,15 @@ public class AddNotesActivity extends AppCompatActivity implements TimePickerDia
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         timeButton.setText("Hour: " + hourOfDay + " Minute: " + minute);
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.YEAR, year);
+        c.set(Calendar.MONTH, month);
+        c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        String currentDateString = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
+        dateButton.setText(currentDateString);
     }
 }
